@@ -1,0 +1,87 @@
+name: Python CI/CD
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff==0.7.1
+
+      - name: Lint with Ruff
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Run tests
+        run: python -m pytest -v
+
+  release:
+    name: Build ${{ matrix.artifact }}
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: hello-python-linux-x64
+          - os: macos-14
+            artifact: hello-python-macos-arm64
+          - os: windows-latest
+            artifact: hello-python-windows-x64.exe
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build with PyInstaller
+        run: python -m PyInstaller --onefile --name hello-python main.py
+
+      - name: Rename binary (Unix)
+        if: runner.os != 'Windows'
+        run: mv dist/hello-python dist/${{ matrix.artifact }}
+
+      - name: Rename binary (Windows)
+        if: runner.os == 'Windows'
+        run: mv dist/hello-python.exe dist/${{ matrix.artifact }}
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: dist/${{ matrix.artifact }}
+          generate_release_notes: true
+
