@@ -8,7 +8,7 @@ def test_main_output(monkeypatch, capsys) -> None:
 
     assert main() == 0
     output = capsys.readouterr().out
-    assert "hello-python version 1.0.0" in output
+    assert "hello-python version 1.0.1" in output
     assert "Hello, GitHub!" in output
     assert "Sum 1..10 = 55" in output
     assert "1: demo" in output

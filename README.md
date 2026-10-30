@@ -19,7 +19,7 @@
 
 1. Создан пакет `hello` с функциями `greet()` и `sum_range()`.
 2. Реализовано CLI с версией, ОС, архитектурой, приветствием, суммой и аргументами командной строки.
-3. Версия `1.0.0` синхронно задана в `pyproject.toml` и `hello/__init__.py`.
+3. Версия `1.0.1` синхронно задана в `pyproject.toml` и `hello/__init__.py`.
 4. Добавлено 5 pytest-проверок функций и вывода CLI.
 5. Настроены Ruff lint/format и pytest в CI.
 6. Настроена матричная нативная PyInstaller-сборка на трёх ОС.
@@ -67,7 +67,7 @@ python -m PyInstaller --onefile --name hello-python main.py
 Ожидаемый вывод:
 
 ```text
-hello-python version 1.0.0
+hello-python version 1.0.1
 Hello from Python! 🐍📦
 OS: <текущая ОС>
 Arch: <архитектура>
@@ -83,7 +83,7 @@ ruff format --check .
 python -m pytest -v
 ```
 
-Локальный результат: `5 passed`; Linux-бинарник PyInstaller успешно запущен и вывел версию `1.0.0`.
+Локальный результат: `5 passed`; Linux-бинарник PyInstaller успешно запущен и вывел версию `1.0.1`.
 
 ## Настройка GitHub Actions
 
@@ -100,10 +100,10 @@ Workflow [Python CI/CD](https://github.com/Andrey76546/hello-python/actions/work
 
 - 5 тестов успешно проходят;
 - Ruff не находит ошибок форматирования или линтинга;
-- опубликована версия `v1.0.0`;
+- опубликованы исходная версия `v1.0.0` и исправленная patch-версия `v1.0.1`;
 - Release содержит Linux x64, macOS ARM64 и Windows x64 бинарники.
 
-Release: [v1.0.0](https://github.com/Andrey76546/hello-python/releases/tag/v1.0.0).
+Актуальный Release: [v1.0.1](https://github.com/Andrey76546/hello-python/releases/tag/v1.0.1). Исходный Release: [v1.0.0](https://github.com/Andrey76546/hello-python/releases/tag/v1.0.0).
 
 ## Настоящие скриншоты
 
@@ -115,15 +115,15 @@ Release: [v1.0.0](https://github.com/Andrey76546/hello-python/releases/tag/v1.0.
 
 Снимок подтверждает успешные тесты и три нативные PyInstaller-сборки в GitHub Actions.
 
-![GitHub Release v1.0.0](screenshots/03-release.png)
+![GitHub Release v1.0.1](screenshots/03-release.png)
 
-Снимок подтверждает опубликованный Release `v1.0.0` с тремя исполняемыми файлами.
+Снимок подтверждает опубликованный Release `v1.0.1` с тремя исполняемыми файлами.
 
 ## Скачивание готовых файлов
 
-- [Linux x64](https://github.com/Andrey76546/hello-python/releases/download/v1.0.0/hello-python-linux-x64)
-- [macOS ARM64](https://github.com/Andrey76546/hello-python/releases/download/v1.0.0/hello-python-macos-arm64)
-- [Windows x64](https://github.com/Andrey76546/hello-python/releases/download/v1.0.0/hello-python-windows-x64.exe)
+- [Linux x64](https://github.com/Andrey76546/hello-python/releases/download/v1.0.1/hello-python-linux-x64)
+- [macOS ARM64](https://github.com/Andrey76546/hello-python/releases/download/v1.0.1/hello-python-macos-arm64)
+- [Windows x64](https://github.com/Andrey76546/hello-python/releases/download/v1.0.1/hello-python-windows-x64.exe)
 
 ## Вывод
 

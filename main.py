@@ -6,6 +6,9 @@ from hello.greeting import greet, sum_range
 
 
 def main() -> int:
+    if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+
     print(f"hello-python version {__version__}")
     print("Hello from Python! 🐍📦")
     print(f"OS: {platform.system().lower()}")
